@@ -39,6 +39,7 @@ export default function LoginForm() {
         />
         <button type="submit">Log in</button>
       </form>
+      {isLogged ? <p>you are logged</p> : <p>you are not logged</p>}
     </div>
   );
 }
