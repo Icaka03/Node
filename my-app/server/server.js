@@ -41,3 +41,32 @@ app.post("/validatePassword", (req, res) => {
 });
 
 app.listen(3001, () => console.log("Listening at port 3001"));
+
+// Registter function here _______________________
+app.post("/register", (req, res) => {
+  const { username, password } = req.body;
+
+  const checkUserQuery = `SELECT * FROM credentials WHERE username = ?`;
+
+  db.get(checkUserQuery, [username], (err, row) => {
+    if (err) {
+      console.error("Error checking user:", err.message);
+      res.status(500).send({ error: "Internal Server Error" });
+      return;
+    }
+
+    if (row) {
+      res.status(400).send({ error: "Username already exists" });
+    } else {
+      const insertQuery = `INSERT INTO credentials (username, password) VALUES (?, ?)`;
+      db.run(insertQuery, [username, password], function (err) {
+        if (err) {
+          console.error("Error inserting user:", err.message);
+          res.status(500).send({ error: "Internal Server Error" });
+        } else {
+          res.send({ success: true });
+        }
+      });
+    }
+  });
+});
