@@ -32,13 +32,27 @@ app.post("/validatePassword", (req, res) => {
     }
     if (row) {
       console.log("User found:", row);
+      res.send({ validation: true });
     } else {
       console.log("User not found or incorrect password");
+      res.send({ validation: false });
     }
   });
 });
 
 app.listen(3001, () => console.log("Listening at port 3001"));
+
+// how to console.log tables from databse _______________________
+db.serialize(() => {
+  db.all("SELECT * FROM Tasks", (err, rows) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Data from Tasks");
+      console.log(rows);
+    }
+  });
+});
 
 // Registter function here _______________________
 app.post("/register", (req, res) => {
@@ -69,14 +83,50 @@ app.post("/register", (req, res) => {
   });
 });
 
-// how to console.log tables from databse _______________________
-db.serialize(() => {
-  db.all("SELECT * FROM credentials", (err, rows) => {
+//creating new data table for taskAdded ____________________
+db.run(
+  `CREATE TABLE IF NOT EXISTS Tasks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT NOT NULL,
+  task TEXT NOT NULL
+  )`,
+  (err) => {
     if (err) {
       console.log(err);
     } else {
-      console.log("Data from credentials");
-      console.log(rows);
+      console.log("created tasks databse or allready exists");
     }
+  }
+);
+//adding data to data table for taskAdded ____________________
+app.post("/tasks", (req, res) => {
+  const { username, task } = req.body;
+
+  db.get(`SELECT * FROM Tasks WHERE username = ?`, [username], (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      db.run(
+        `ISNERT INTO Tasks (username, task) VALUES (? , ?) `,
+        [username, task],
+        function (err) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.send({ success: true });
+          }
+        }
+      );
+    }
+  });
+});
+
+app.get("/users", (req, res) => {
+  db.all("SELECT * FROM credentials", [], (err, rows) => {
+    if (err) {
+      console.log(err);
+    }
+
+    res.json({ data: rows });
   });
 });

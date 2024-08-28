@@ -30,6 +30,7 @@ export default function LoginForm() {
   useEffect(() => {
     if (isLogged) {
       navigate("/dashboard");
+      console.log(username);
     }
   }, [isLogged, navigate]);
 
