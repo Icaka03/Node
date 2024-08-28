@@ -70,3 +70,14 @@ app.post("/register", (req, res) => {
     }
   });
 });
+
+db.serialize(() => {
+  db.all("SELECT * FROM credentials", (err, rows) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Data from credentials");
+      console.log(rows);
+    }
+  });
+});
