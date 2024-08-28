@@ -32,10 +32,8 @@ app.post("/validatePassword", (req, res) => {
     }
     if (row) {
       console.log("User found:", row);
-      res.send({ validation: true });
     } else {
       console.log("User not found or incorrect password");
-      res.send({ validation: false });
     }
   });
 });
