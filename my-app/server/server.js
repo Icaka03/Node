@@ -71,6 +71,7 @@ app.post("/register", (req, res) => {
   });
 });
 
+// how to console.log tables from databse _______________________
 db.serialize(() => {
   db.all("SELECT * FROM credentials", (err, rows) => {
     if (err) {

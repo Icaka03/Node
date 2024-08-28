@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -21,6 +21,15 @@ export default function LoginForm() {
       });
     console.log(isLogged);
   };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLogged) {
+      navigate("/dashboard");
+    }
+  }, [isLogged, navigate]);
+
   return (
     <div>
       <form onSubmit={onFinish}>
