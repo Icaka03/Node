@@ -1,9 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { MyContext } from "../MyContext";
 
 export default function Dashboard() {
   const [task, setTask] = useState("");
   const [users, setUsers] = useState([]);
+  const { username } = useContext(MyContext);
   const addToDatabase = async () => {
     console.log("done");
 
@@ -34,8 +36,10 @@ export default function Dashboard() {
         console.error("There was an error fetching the data!", error);
       });
   }, []);
+
   return (
     <div>
+      <h1>{username}</h1>
       <h1>Dashboard</h1>
       {users.map((user) => (
         <li key={user.id}>

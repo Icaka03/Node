@@ -1,11 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
-
+import { MyContext } from "../MyContext";
 import "../styles/Login.css";
 
 export default function LoginForm() {
-  const [username, setUsername] = useState("");
+  const { username, setUsername } = useContext(MyContext);
   const [password, setPassword] = useState("");
   const [isLogged, setIsLogged] = useState(false);
   const onFinish = (e) => {
@@ -32,7 +32,7 @@ export default function LoginForm() {
       navigate("/dashboard");
       console.log(username);
     }
-  }, [isLogged, navigate]);
+  }, [isLogged, navigate, username]);
 
   return (
     <div className="form">
