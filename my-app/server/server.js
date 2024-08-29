@@ -107,7 +107,7 @@ app.post("/tasks", (req, res) => {
       console.log(err);
     } else {
       db.run(
-        `ISNERT INTO Tasks (username, task) VALUES (? , ?) `,
+        `INSERT INTO Tasks (username, task) VALUES (? , ?) `,
         [username, task],
         function (err) {
           if (err) {
