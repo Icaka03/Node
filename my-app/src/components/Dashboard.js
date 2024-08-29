@@ -4,11 +4,10 @@ import { MyContext } from "../MyContext";
 
 export default function Dashboard() {
   const [task, setTask] = useState("");
-  const [users, setUsers] = useState([]);
+  const [fetchTask, setFetchTask] = useState([]);
   const { username } = useContext(MyContext);
+  const name = localStorage.getItem("name");
   const addToDatabase = async () => {
-    console.log("done");
-
     const response = await fetch("http://localhost:3001/tasks", {
       method: "POST",
       headers: {
@@ -28,32 +27,32 @@ export default function Dashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/users")
+      .get("http://localhost:3001/fetchTasks")
       .then((response) => {
-        setUsers(response.data.data);
+        setFetchTask(response.data.data);
       })
       .catch((error) => {
         console.error("There was an error fetching the data!", error);
       });
   }, []);
-
   return (
     <div>
-      <h1>{username}</h1>
+      <h1> Welcome {name}</h1>
       <h1>Dashboard</h1>
-      {users.map((user) => (
-        <li key={user.id}>
-          {user.username} - {user.password}
-        </li>
-      ))}
-      <p>add text to your account and database</p>
+      <p>add task to your account</p>
       <input
         placeholder="write here"
         value={task}
         onChange={(e) => setTask(e.target.value)}
       />
       <button onClick={() => addToDatabase()}>Submit</button>
-      {task ? <p>{task}</p> : null}
+
+      <h1>My tasks:</h1>
+      {fetchTask.map((task) => {
+        if (task.username === name) {
+          return <p>{task.task} </p>;
+        }
+      })}
     </div>
   );
 }

@@ -122,8 +122,8 @@ app.post("/tasks", (req, res) => {
 });
 
 // how to make an api to fetch data ____________________________
-app.get("/users", (req, res) => {
-  db.all("SELECT * FROM credentials", [], (err, rows) => {
+app.get("/fetchTasks", (req, res) => {
+  db.all("SELECT * FROM Tasks", [], (err, rows) => {
     if (err) {
       console.log(err);
     }

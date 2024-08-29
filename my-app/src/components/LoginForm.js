@@ -8,6 +8,7 @@ export default function LoginForm() {
   const { username, setUsername } = useContext(MyContext);
   const [password, setPassword] = useState("");
   const [isLogged, setIsLogged] = useState(false);
+
   const onFinish = (e) => {
     e.preventDefault();
     console.log("done");
@@ -34,6 +35,9 @@ export default function LoginForm() {
     }
   }, [isLogged, navigate, username]);
 
+  useEffect(() => {
+    localStorage.setItem("name", username);
+  }, [username]); // Only runs when `data` changes
   return (
     <div className="form">
       <h1>Login</h1>
