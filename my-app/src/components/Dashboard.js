@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { MyContext } from "../MyContext";
-
+import "../styles/Dashboard.css";
 export default function Dashboard() {
   const [task, setTask] = useState("");
   const [fetchTask, setFetchTask] = useState([]);
@@ -37,22 +37,29 @@ export default function Dashboard() {
   }, []);
   return (
     <div>
-      <h1> Welcome {name}</h1>
-      <h1>Dashboard</h1>
-      <p>add task to your account</p>
-      <input
-        placeholder="write here"
-        value={task}
-        onChange={(e) => setTask(e.target.value)}
-      />
-      <button onClick={() => addToDatabase()}>Submit</button>
+      <div className="task-box">
+        <h1> Hello, {name}</h1>
+        <p className="heading-text">
+          Add and track your tasks progression here
+        </p>
+        <div className="line"></div>
+        <div className="add-task">
+          <h2>Add task to your account</h2>
+          <input
+            placeholder="write here"
+            value={task}
+            onChange={(e) => setTask(e.target.value)}
+          />
+          <button onClick={() => addToDatabase()}>Submit</button>
+        </div>
 
-      <h1>My tasks:</h1>
-      {fetchTask.map((task) => {
-        if (task.username === name) {
-          return <p>{task.task} </p>;
-        }
-      })}
+        <h1>My tasks:</h1>
+        {fetchTask.map((task) => {
+          if (task.username === name) {
+            return <p>{task.task} </p>;
+          }
+        })}
+      </div>
     </div>
   );
 }
