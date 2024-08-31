@@ -24,7 +24,6 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: #a8a8a8;
 }
 
 .menu-account {
@@ -54,6 +53,7 @@
   width: 35px;
   height: 35px;
   filter: grayscale(100%) brightness(58%);
+  cursor: pointer;
 }
 
 .menu-contents {
@@ -64,4 +64,6 @@
 
 .menu-content-text {
   font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
 }

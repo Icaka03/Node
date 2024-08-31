@@ -3,18 +3,21 @@ import { useEffect, useState, useContext } from "react";
 import { MyContext } from "../MyContext";
 import "../styles/Dashboard.css";
 import SideMenu from "./SideMenu";
+
 export default function Dashboard() {
   const [task, setTask] = useState("");
   const [fetchTask, setFetchTask] = useState([]);
   const { username } = useContext(MyContext);
+  const [date, setDate] = useState(new Date());
   const name = localStorage.getItem("name");
+  const todaysDate = date.toDateString();
   const addToDatabase = async () => {
     const response = await fetch("http://localhost:3001/tasks", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ task, username }),
+      body: JSON.stringify({ task, username, todaysDate }),
     });
 
     const data = await response.json();
@@ -27,6 +30,7 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
+    console.log(todaysDate);
     axios
       .get("http://localhost:3001/fetchTasks")
       .then((response) => {
@@ -36,6 +40,10 @@ export default function Dashboard() {
         console.error("There was an error fetching the data!", error);
       });
   }, []);
+
+  const onChange = (newDate) => {
+    setDate(newDate);
+  };
   return (
     <div className="flex">
       <SideMenu />
@@ -58,9 +66,14 @@ export default function Dashboard() {
         <h1>My tasks:</h1>
         {fetchTask.map((task) => {
           if (task.username === name) {
-            return <p>{task.task} </p>;
+            return (
+              <div>
+                <p>{task.task} </p>
+              </div>
+            );
           }
         })}
+        {/* {date.toDateString()} */}
       </div>
     </div>
   );

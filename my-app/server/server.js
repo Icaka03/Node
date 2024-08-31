@@ -88,7 +88,8 @@ db.run(
   `CREATE TABLE IF NOT EXISTS Tasks (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT NOT NULL,
-  task TEXT NOT NULL
+  task TEXT NOT NULL,
+  date TEXT NOT NULL
   )`,
   (err) => {
     if (err) {
@@ -100,15 +101,15 @@ db.run(
 );
 //adding data to data table for taskAdded ____________________
 app.post("/tasks", (req, res) => {
-  const { username, task } = req.body;
+  const { username, task, date } = req.body;
 
   db.get(`SELECT * FROM Tasks WHERE username = ?`, [username], (err) => {
     if (err) {
       console.log(err);
     } else {
       db.run(
-        `INSERT INTO Tasks (username, task) VALUES (? , ?) `,
-        [username, task],
+        `INSERT INTO Tasks (username, task, date) VALUES (? , ? , ?) `,
+        [username, task, date],
         function (err) {
           if (err) {
             console.log(err);
@@ -131,3 +132,13 @@ app.get("/fetchTasks", (req, res) => {
     res.json({ data: rows });
   });
 });
+
+// db.serialize(() => {
+//   db.run(`DROP TABLE IF EXISTS Tasks`, (err) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log("Table Deleted");
+//     }
+//   });
+// });
