@@ -1,0 +1,67 @@
+.menu {
+  background-color: #f9f9f9;
+  height: 100vh;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-right: 20px;
+}
+
+.orange-color {
+  color: #fa9538;
+}
+
+.menu-heading {
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.heading-undertext {
+  color: #a8a8a8;
+  margin-top: 0px;
+}
+
+.empty-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #a8a8a8;
+}
+
+.menu-account {
+  display: flex;
+  margin-top: 50px;
+  border: 3px solid #ededed;
+  border-radius: 10px;
+  padding: 5px 0px 5px 10px;
+}
+
+.account-username {
+  margin-top: 0px;
+  margin-left: 10px;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.Menu-dropdown {
+  margin-top: 50px;
+  color: #898989;
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.menu-icons {
+  width: 35px;
+  height: 35px;
+  filter: grayscale(100%) brightness(58%);
+}
+
+.menu-contents {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.menu-content-text {
+  font-size: 22px;
+}

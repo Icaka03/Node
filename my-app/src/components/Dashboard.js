@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { MyContext } from "../MyContext";
 import "../styles/Dashboard.css";
+import SideMenu from "./SideMenu";
 export default function Dashboard() {
   const [task, setTask] = useState("");
   const [fetchTask, setFetchTask] = useState([]);
@@ -36,7 +37,8 @@ export default function Dashboard() {
       });
   }, []);
   return (
-    <div>
+    <div className="flex">
+      <SideMenu />
       <div className="task-box">
         <h1> Hello, {name}</h1>
         <p className="heading-text">
