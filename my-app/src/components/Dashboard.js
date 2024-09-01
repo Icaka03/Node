@@ -1,17 +1,25 @@
 import axios from "axios";
-import { useEffect, useState, useContext } from "react";
-import { MyContext } from "../MyContext";
+import { useEffect, useState } from "react";
 import "../styles/Dashboard.css";
 import SideMenu from "./SideMenu";
 
 export default function Dashboard() {
   const [task, setTask] = useState("");
   const [fetchTask, setFetchTask] = useState([]);
-  const { username } = useContext(MyContext);
   const [date, setDate] = useState(new Date());
   const name = localStorage.getItem("name");
+  const [username, setUsername] = useState("");
   const todaysDate = date.toDateString();
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("name");
+
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
   const addToDatabase = async () => {
+    console.log(task + " " + username + " " + todaysDate);
     const response = await fetch("http://localhost:3001/tasks", {
       method: "POST",
       headers: {
@@ -30,7 +38,6 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    console.log(todaysDate);
     axios
       .get("http://localhost:3001/fetchTasks")
       .then((response) => {
@@ -64,16 +71,18 @@ export default function Dashboard() {
         </div>
 
         <h1>My tasks:</h1>
-        {fetchTask.map((task) => {
-          if (task.username === name) {
-            return (
-              <div>
-                <p>{task.task} </p>
-              </div>
-            );
-          }
-        })}
-        {/* {date.toDateString()} */}
+        <div>
+          {fetchTask.map((task) => {
+            if (task.username === name) {
+              return (
+                <div className="note">
+                  <p>{task.task} </p>
+                  <p>this note is from {task.date}</p>
+                </div>
+              );
+            }
+          })}
+        </div>
       </div>
     </div>
   );

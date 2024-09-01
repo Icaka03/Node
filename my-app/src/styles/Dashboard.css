@@ -24,3 +24,9 @@
   display: grid;
   grid-template-columns: 1fr 8fr;
 }
+
+.note {
+  width: 300px;
+  height: 200px;
+  background-color: red;
+}

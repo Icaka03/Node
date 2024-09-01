@@ -83,43 +83,44 @@ app.post("/register", (req, res) => {
   });
 });
 
-//creating new data table for taskAdded ____________________
-db.run(
-  `CREATE TABLE IF NOT EXISTS Tasks (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  username TEXT NOT NULL,
-  task TEXT NOT NULL,
-  date TEXT NOT NULL
-  )`,
-  (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("created tasks databse or allready exists");
-    }
-  }
-);
-//adding data to data table for taskAdded ____________________
+// creating new data table for taskAdded ____________________
+// db.run(
+//   `CREATE TABLE IF NOT EXISTS Tasks (
+// id INTEGER PRIMARY KEY AUTOINCREMENT,
+//     task TEXT,
+//     username TEXT,
+//     date TEXT
+//   )`,
+//   (err) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log("created tasks databse or allready exists");
+//     }
+//   }
+// );
+//adding data to table for taskAdded from request ____________________
 app.post("/tasks", (req, res) => {
-  const { username, task, date } = req.body;
+  const { task, username, todaysDate } = req.body;
 
-  db.get(`SELECT * FROM Tasks WHERE username = ?`, [username], (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      db.run(
-        `INSERT INTO Tasks (username, task, date) VALUES (? , ? , ?) `,
-        [username, task, date],
-        function (err) {
-          if (err) {
-            console.log(err);
-          } else {
-            res.send({ success: true });
-          }
+  if (!task || !username || !todaysDate) {
+    console.log("missing values");
+    console.log("task = " + task);
+    console.log("username = " + username);
+    console.log("date = " + todaysDate);
+  } else {
+    db.run(
+      `INSERT INTO tasks (task, username, date) VALUES (?, ?, ?)`,
+      [task, username, todaysDate],
+      function (err) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send({ success: true });
         }
-      );
-    }
-  });
+      }
+    );
+  }
 });
 
 // how to make an api to fetch data ____________________________
@@ -132,6 +133,7 @@ app.get("/fetchTasks", (req, res) => {
     res.json({ data: rows });
   });
 });
+// How to delete a table ________________________________________________________________
 
 // db.serialize(() => {
 //   db.run(`DROP TABLE IF EXISTS Tasks`, (err) => {
@@ -139,6 +141,28 @@ app.get("/fetchTasks", (req, res) => {
 //       console.log(err);
 //     } else {
 //       console.log("Table Deleted");
+//     }
+//   });
+// });
+
+// app.post("/tasks", (req, res) => {
+//   const { username, task, todaysDate } = req.body;
+
+//   db.get(`SELECT * FROM Tasks WHERE username = ?`, [username], (err) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       db.run(
+//         `INSERT INTO Tasks (username, task) VALUES (? , ? ) `,
+//         [username, task],
+//         function (err) {
+//           if (err) {
+//             console.log(err);
+//           } else {
+//             res.send({ success: true });
+//           }
+//         }
+//       );
 //     }
 //   });
 // });
