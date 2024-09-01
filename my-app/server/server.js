@@ -84,34 +84,36 @@ app.post("/register", (req, res) => {
 });
 
 // creating new data table for taskAdded ____________________
-// db.run(
-//   `CREATE TABLE IF NOT EXISTS Tasks (
-// id INTEGER PRIMARY KEY AUTOINCREMENT,
-//     task TEXT,
-//     username TEXT,
-//     date TEXT
-//   )`,
-//   (err) => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       console.log("created tasks databse or allready exists");
-//     }
-//   }
-// );
+db.run(
+  `CREATE TABLE IF NOT EXISTS Tasks (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+    task TEXT,
+    username TEXT,
+    date TEXT,
+    time TEXT
+  )`,
+  (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("created tasks databse or allready exists");
+    }
+  }
+);
 //adding data to table for taskAdded from request ____________________
 app.post("/tasks", (req, res) => {
-  const { task, username, todaysDate } = req.body;
+  const { task, username, todaysDate, showTime } = req.body;
 
-  if (!task || !username || !todaysDate) {
+  if (!task || !username || !todaysDate || !showTime) {
     console.log("missing values");
     console.log("task = " + task);
     console.log("username = " + username);
     console.log("date = " + todaysDate);
+    console.log("time = " + showTime);
   } else {
     db.run(
-      `INSERT INTO tasks (task, username, date) VALUES (?, ?, ?)`,
-      [task, username, todaysDate],
+      `INSERT INTO tasks (task, username, date, time) VALUES (?, ?, ?, ?)`,
+      [task, username, todaysDate, showTime],
       function (err) {
         if (err) {
           console.log(err);
@@ -141,28 +143,6 @@ app.get("/fetchTasks", (req, res) => {
 //       console.log(err);
 //     } else {
 //       console.log("Table Deleted");
-//     }
-//   });
-// });
-
-// app.post("/tasks", (req, res) => {
-//   const { username, task, todaysDate } = req.body;
-
-//   db.get(`SELECT * FROM Tasks WHERE username = ?`, [username], (err) => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       db.run(
-//         `INSERT INTO Tasks (username, task) VALUES (? , ? ) `,
-//         [username, task],
-//         function (err) {
-//           if (err) {
-//             console.log(err);
-//           } else {
-//             res.send({ success: true });
-//           }
-//         }
-//       );
 //     }
 //   });
 // });

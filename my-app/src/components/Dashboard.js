@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../styles/Dashboard.css";
 import SideMenu from "./SideMenu";
-
+import CalendarIcon from "../images/calendar.png";
 export default function Dashboard() {
   const [task, setTask] = useState("");
   const [fetchTask, setFetchTask] = useState([]);
@@ -10,6 +10,8 @@ export default function Dashboard() {
   const name = localStorage.getItem("name");
   const [username, setUsername] = useState("");
   const todaysDate = date.toDateString();
+  const time = new Date();
+  const showTime = time.getHours() + ":" + time.getMinutes();
 
   useEffect(() => {
     const storedUsername = localStorage.getItem("name");
@@ -25,7 +27,7 @@ export default function Dashboard() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ task, username, todaysDate }),
+      body: JSON.stringify({ task, username, todaysDate, showTime }),
     });
 
     const data = await response.json();
@@ -48,17 +50,25 @@ export default function Dashboard() {
       });
   }, []);
 
-  const onChange = (newDate) => {
-    setDate(newDate);
-  };
   return (
     <div className="flex">
       <SideMenu />
       <div className="task-box">
-        <h1> Hello, {name}</h1>
-        <p className="heading-text">
-          Add and track your tasks progression here
-        </p>
+        <div className="header">
+          <h1> Hello, {name}</h1>
+          <p className="heading-text">
+            Add and track your tasks progression here
+          </p>
+          <div>
+            <img
+              src={CalendarIcon}
+              alt="calendar-icon"
+              className="calendar-icon"
+            />
+            <p className="currentDate">{todaysDate}</p>
+          </div>
+        </div>
+
         <div className="line"></div>
         <div className="add-task">
           <h2>Add task to your account</h2>
@@ -71,13 +81,14 @@ export default function Dashboard() {
         </div>
 
         <h1>My tasks:</h1>
-        <div>
+        <div className="task-section">
           {fetchTask.map((task) => {
             if (task.username === name) {
               return (
                 <div className="note">
                   <p>{task.task} </p>
                   <p>this note is from {task.date}</p>
+                  <p>{task.time}</p>
                 </div>
               );
             }
