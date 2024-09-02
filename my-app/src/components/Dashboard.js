@@ -86,8 +86,16 @@ export default function Dashboard() {
             if (task.username === name) {
               return (
                 <div className="note">
-                  <p>{task.task} </p>
-                  <p>this note is from {task.date}</p>
+                  <div className="task-date-box">
+                    <img
+                      src={CalendarIcon}
+                      alt="calendar-icon"
+                      className="task-calendar-icon"
+                    />
+                    <p>{task.date}</p>
+                  </div>
+                  <p className="task-task">{task.task} </p>
+
                   <p>{task.time}</p>
                 </div>
               );

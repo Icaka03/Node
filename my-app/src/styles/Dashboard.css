@@ -24,6 +24,7 @@
   height: 200px;
   background-color: #f8dfc8;
   border-radius: 10px;
+  margin-right: 20px;
 }
 
 .task-section {
@@ -71,4 +72,20 @@
   bottom: 35px;
   right: 160px;
   filter: brightness(0) saturate(100%) invert(100%);
+}
+
+.task-task{
+  font-size: 25px;
+  margin-left: 10px;
+  font-weight: 600;
+}
+
+.task-calendar-icon{
+  width: 30px;
+  height: 30px;
+}
+
+.task-date-box{
+  display: flex;
+  align-items: center;
 }
