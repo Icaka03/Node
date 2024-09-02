@@ -25,11 +25,13 @@
   background-color: #f8dfc8;
   border-radius: 10px;
   margin-right: 20px;
+  position: relative;
+  margin-bottom: 20px;
 }
 
 .task-section {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   background-color: #f9f9f9;
   padding-bottom: 100px;
   border-radius: 10px;
@@ -74,18 +76,39 @@
   filter: brightness(0) saturate(100%) invert(100%);
 }
 
-.task-task{
+.task-task {
   font-size: 25px;
-  margin-left: 10px;
-  font-weight: 600;
+  margin-left: 15px;
+  font-weight: 500;
+  margin-top: 0px;
 }
 
-.task-calendar-icon{
-  width: 30px;
-  height: 30px;
+.task-calendar-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
 }
 
-.task-date-box{
+.task-date-box {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  margin-right: 10px;
+}
+
+.task-date {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.task-time {
+  position: absolute;
+  bottom: 0px;
+  left: 15px;
+}
+
+@media only screen and (min-width: 1600px) {
+  .task-section {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 }

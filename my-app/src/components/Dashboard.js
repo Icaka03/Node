@@ -92,11 +92,11 @@ export default function Dashboard() {
                       alt="calendar-icon"
                       className="task-calendar-icon"
                     />
-                    <p>{task.date}</p>
+                    <p className="task-date">{task.date}</p>
                   </div>
                   <p className="task-task">{task.task} </p>
 
-                  <p>{task.time}</p>
+                  <p className="task-time">{task.time} AM</p>
                 </div>
               );
             }
