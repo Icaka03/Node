@@ -52,7 +52,7 @@ export default function Dashboard() {
 
   return (
     <div className="flex">
-      <SideMenu />
+      <SideMenu tasks={true} />
       <div className="task-box">
         <div className="header">
           <h1> Hello, {name}</h1>

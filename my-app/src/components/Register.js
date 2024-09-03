@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import { Link } from "react-router-dom";
+import "../styles/Register.css";
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -26,30 +27,43 @@ export default function Register() {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
+    <div className="form">
+      <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Username:</label>
+          <p>Username:</p>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            placeholder="Name"
           />
         </div>
         <div>
-          <label>Password:</label>
+          <p>Password:</p>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            placeholder="Password"
           />
         </div>
-        <button type="submit">Register</button>
+        <button type="submit" className="register-button">
+          Register
+        </button>
       </form>
-      {message && <p>{message}</p>}
+      <div className="register-text">
+        <p>
+          Allready have an account?{" "}
+          <span>
+            <Link to="/" style={{ color: "#3554d1" }}>
+              Log in
+            </Link>
+          </span>
+        </p>
+      </div>
     </div>
   );
 }

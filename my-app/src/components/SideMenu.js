@@ -2,7 +2,7 @@ import TaskIcon from "../images/task.png";
 import UsecIconOrange from "../images/user-orange.png";
 import "../styles/SideMenu.css";
 
-export default function SideMenu() {
+export default function SideMenu(tasks) {
   const name = localStorage.getItem("name");
   return (
     <div className="menu">
@@ -17,8 +17,12 @@ export default function SideMenu() {
       </div>
 
       <div className="Menu-dropdown">Menu</div>
-      <div className="menu-contents">
-        <img src={TaskIcon} alt="task-icon" className="menu-icons" />
+      <div className={!tasks ? "menu-contents" : "menu-contents active"}>
+        <img
+          src={TaskIcon}
+          alt="task-icon"
+          className={!tasks ? "menu-icons" : "menu-icons-active"}
+        />
         <p className="menu-content-text">Add task</p>
       </div>
       <div className="menu-contents">

@@ -56,6 +56,12 @@
   cursor: pointer;
 }
 
+.menu-icons-active {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  filter: brightness(0) invert(1);
+}
 .menu-contents {
   display: flex;
   align-items: center;
@@ -66,4 +72,10 @@
   font-size: 22px;
   font-weight: 600;
   cursor: pointer;
+}
+
+.active {
+  background-color: #fa9639;
+  border-radius: 10px;
+  color: #fff;
 }
