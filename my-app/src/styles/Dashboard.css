@@ -107,6 +107,32 @@
   left: 15px;
 }
 
+.task-input {
+  padding: 20px 10px;
+  border-radius: 10px;
+  border: 2px solid #efefef;
+  width: 300px;
+  color: #000;
+  font-size: 16px;
+}
+
+.task-input::placeholder {
+  color: #000;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.task-button {
+  padding: 18px 40px;
+  border-radius: 10px;
+  border: none;
+  margin-left: 50px;
+  background-color: #fa9639;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
 @media only screen and (min-width: 1600px) {
   .task-section {
     grid-template-columns: 1fr 1fr 1fr 1fr;

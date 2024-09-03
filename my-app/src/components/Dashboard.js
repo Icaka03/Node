@@ -73,11 +73,14 @@ export default function Dashboard() {
         <div className="add-task">
           <h2>Add task to your account</h2>
           <input
-            placeholder="write here"
+            placeholder="Add task here"
             value={task}
             onChange={(e) => setTask(e.target.value)}
+            className="task-input"
           />
-          <button onClick={() => addToDatabase()}>Submit</button>
+          <button onClick={() => addToDatabase()} className="task-button">
+            Add Task
+          </button>
         </div>
 
         <h1>My tasks:</h1>
